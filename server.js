@@ -25,6 +25,28 @@ connection.query('SELECT * from students', function (err, rows, fields) {
 })
 
 connection.end();
+
+app.get('/students', function(req, res) {
+    var id = req.param('sid');
+    var sql='select* from students';
+        if(sid){
+            sql += ' where id ='+sid;
+        }
+   db.any(sql)
+    .then(function(data){
+        console.log('DATA:'+data);
+        res.render('pages/students',{students: data})
+        
+    })
+    .catch(function(error){
+        console.log('ERROR:'+error);
+    })
+
+});
+
+
+
+
 console.log('Appp is running at http://localhost:8085');          
 
 app.listen(8085);
