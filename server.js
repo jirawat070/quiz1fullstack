@@ -18,32 +18,31 @@ var connection = mysql.createConnection({
 
 connection.connect()
 
-connection.query('SELECT * from students', function (err, rows, fields) {
-  if (err) throw err
-
-  console.log('The solution is: ', rows)
-})
-
-connection.end();
-
 app.get('/students', function(req, res) {
-    var id = req.param('sid');
-    var sql='select* from students';
-        if(sid){
-            sql += ' where id ='+sid;
-        }
-   db.any(sql)
-    .then(function(data){
-        console.log('DATA:'+data);
-        res.render('pages/students',{students: data})
-        
-    })
-    .catch(function(error){
-        console.log('ERROR:'+error);
-    })
-
+    
+    connection.query('SELECT * from students', function (err, rows, fields) {
+        if (err) throw err
+        res.render('pages/students',{students: rows})
+      
+        console.log( rows)
+      })
+      
+      connection.end();
+      
 });
 
+app.get('/subjects', function(req, res) {
+    
+    connection.query('SELECT * from subjects', function (err, rows, fields) {
+        if (err) throw err
+        res.render('pages/subjects',{subjects: rows})
+      
+        console.log( rows)
+      })
+      
+      connection.end();
+      
+});
 
 
 
